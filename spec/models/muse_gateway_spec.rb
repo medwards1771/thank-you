@@ -1,5 +1,4 @@
-require_relative 'muse_gateway.rb'
-require 'pry'
+require 'rails_helper'
 
 describe 'MuseGateway' do
   let(:gateway) { MuseGateway.new }
