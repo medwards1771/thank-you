@@ -7,7 +7,7 @@ class MuseGateway
     response = HTTParty.get(url_endpoint)
     case response.code
     when 200..299
-      response['results'][0]['company']
+      response
     else
       raise StandardError
     end

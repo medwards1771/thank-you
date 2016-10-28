@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe 'MuseGateway' do
   let(:gateway) { MuseGateway.new }
 
@@ -8,8 +6,8 @@ describe 'MuseGateway' do
 
     context 'with a valid url' do
       let(:url) {'https://api-v2.themuse.com/jobs?page=1'}
-      it 'should contain the correct keys for company model' do
-        expect(response).to include('name', 'short_name', 'id')
+      it 'should not raise an error' do
+        expect(response).to be_success
       end
     end
 

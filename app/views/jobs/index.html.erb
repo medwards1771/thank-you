@@ -1,1 +1,7 @@
-Hello! Can you hear me?
+<% @jobs.each do |job| %>
+  <p>
+    <%= job.title %><br>
+    <a href=<%= job.company_website %>>Company Website</a><br>
+    <%= job.company_name %>
+  </p>
+<% end %>

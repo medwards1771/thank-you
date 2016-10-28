@@ -8,5 +8,9 @@ describe JobsController do
     it 'renders the index template' do
       expect(subject).to render_template(:index)
     end
+
+    it 'should be successful' do
+      expect(response).to be_success
+    end
   end
 end
