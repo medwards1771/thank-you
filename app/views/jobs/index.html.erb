@@ -1,3 +1,6 @@
+<a href=<%="/jobs?page=#{params[:page].to_i - 1}"%>>Previous</a>
+<a href=<%="/jobs?page=#{params[:page].to_i + 1}"%>>Next</a>
+
 <% @jobs.each do |job| %>
   <p>
     <%= job.title %><br>
