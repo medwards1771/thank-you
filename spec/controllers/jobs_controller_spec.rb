@@ -3,14 +3,18 @@ require 'rails_helper'
 describe JobsController do
 
   describe '#index' do
-    subject { get :index }
+    before { get :index, params: { page: page } }
 
-    it 'renders the index template' do
-      expect(subject).to render_template(:index)
+    context 'with valid params' do
+      let(:page) { '1' }
+
+      it { should render_template('index') }
+      it { should respond_with 200 }
     end
 
-    it 'should be successful' do
-      expect(response).to be_success
+    context 'with invalid params' do
+      let(:page) { '100' }
+      it { should respond_with 404 }
     end
   end
 end
