@@ -1,19 +1,15 @@
 class JobsController < ApplicationController
 
   def index
-    JobConstructor.new.perform(params[:page])
-    if params[:page] == '1'
-      @jobs = Job.all[0..19]
-    elsif params[:page] == '2'
-      @jobs = Job.all[20..39]
-    elsif params[:page] == '3'
-      @jobs = Job.all[40..59]
+    gateway = MuseGateway.new
+    page = params[:page].to_i
+    if page >= 0 && page <= 99
+      results = gateway.fetch("https://api-v2.themuse.com/jobs?page=#{params[:page]}")['results']
+      @jobs = results.map do |job|
+        Job.new(job['name'], job['refs']['landing_page'], job['company']['name'])
+      end
+    else
+      render :file => 'public/404.html', :status => :not_found, :layout => false
     end
-  end
-
-  private
-
-  def job_params
-    params.permit(:page)
   end
 end
