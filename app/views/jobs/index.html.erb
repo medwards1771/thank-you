@@ -1,10 +1,9 @@
-<a href=<%="/jobs?page=#{params[:page].to_i - 1}"%>>Previous</a>
-<a href=<%="/jobs?page=#{params[:page].to_i + 1}"%>>Next</a>
+Which job did you apply for?
 
 <% @jobs.each do |job| %>
-  <p>
-    <%= job.title %><br>
-    <a href=<%= job.company_website %>>Company Website</a><br>
-    <%= job.company_name %>
-  </p>
+  <form class="" action="<%=jobs_path%>" method="get">
+    <%=job.title%>
+    <input type="hidden" name="uid" value="<%=job.uid%>">
+    <input type="submit" value="Select">
+  </form>
 <% end %>

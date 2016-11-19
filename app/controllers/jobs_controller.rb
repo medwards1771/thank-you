@@ -1,15 +1,18 @@
 class JobsController < ApplicationController
+  def create
+    gateway = MuseGateway.new
+    results = gateway.fetch("https://api-v2.themuse.com/jobs?company=#{params[:company]}&page=1")['results']
+    @jobs = results.map do |job|
+      Job.new({ uid: job['id'], title: job['name'], information: job['contents'], landing_page: job['refs']['landing_page'], company_name: job['company']['name']})
+    end
+    render 'jobs/index'
+  end
 
   def index
-    gateway = MuseGateway.new
-    page = params[:page].to_i
-    if page >= 0 && page <= 99
-      results = gateway.fetch("https://api-v2.themuse.com/jobs?page=#{params[:page]}")['results']
-      @jobs = results.map do |job|
-        Job.new(job['name'], job['refs']['landing_page'], job['company']['name'])
-      end
-    else
-      render :file => 'public/404.html', :status => :not_found, :layout => false
-    end
+    redirect_to job_path(params[:uid])
+  end
+
+  def show
+    @job = Job.find_by(uid: params[:id])
   end
 end

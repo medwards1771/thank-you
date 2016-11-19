@@ -1,1 +1,12 @@
-<a href="/jobs?page=1">Look at our available jobs!</a>
+<p>
+  So you just had a job interview and you want to write a thank you note?
+</p>
+<p>
+  Let us help you!<br>
+<%= form_tag("/jobs", method: "post") do %>
+  First, tell us what company you interviewed with.<br>
+  Company name:
+  <input type="text" name="company">
+  <input type="submit" value="Submit">
+<% end %>
+</p>
